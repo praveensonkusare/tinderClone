@@ -28,7 +28,7 @@ function TinderCards() {
           <TinderCard
             className='Swipe'
             key={person.name}
-            preventSwipe={['up', 'down']}
+            preventSwipe={['left', 'right']}
             onSwipe={(dir) => swiped(dir, person.name)}
             onCardLeftScreen={() => outOfFrame(person.name)}
           >
