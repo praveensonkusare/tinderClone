@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import Cards from './dbCards.js';
 import Cors from 'cors';
+import path from 'path';
 
 //App Config
 // create a instance of
@@ -23,7 +24,7 @@ mongoose.connect(connection_url, {
 });
 // API Endpoint configuration
 
-app.get('/', (req, res) => res.status(200).send('hello world'));
+//app.get('/', (req, res) => res.status(200).send('hello world'));
 
 app.post('/tinder/cards', async (req, res) => {
   const dbcard = req.body;
@@ -37,11 +38,6 @@ app.post('/tinder/cards', async (req, res) => {
     res.status(500).send(err);
   }
 });
-app.use(express.static('./client/static'));
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, 'client', 'static', 'index.html'));
-// });
 
 // }
 
@@ -56,5 +52,14 @@ app.get('/tinder/cards', async (req, res) => {
     res.status(500).send(err);
   }
 });
+
+app.use(express.static('./client/static'));
+//const path = require('path');
+const __dirname = path.resolve();
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'static', 'index.html'));
+});
+
 // Listener configuration
 app.listen(port, () => console.log(`listening on port: ${port}`));
